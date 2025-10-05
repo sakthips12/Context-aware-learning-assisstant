@@ -13,9 +13,13 @@ Graph Workflow: Built with LangGraph for structured state management and modular
 Local LLM Integration: Powered by Ollama (LLaMA3) for private, offline inference.
 
 📂 Project Structure
+
 ├── noapi.py              # Entry point with LangGraph pipeline
+
 ├── lecture.pdf          # Example lecture file for ingestion
+
 ├── requirements.txt     # Python dependencies
+
 └── README.md            # Project documentation
 
 ⚙️ Setup & Installation
