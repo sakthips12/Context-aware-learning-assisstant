@@ -34,14 +34,22 @@ Ensure you have Ollama installed and a model pulled (e.g., llama3):
 ollama pull llama3
 
 📚 Tech Stack
+
 LangGraph – Graph-based orchestration
+
 LangChain – RAG framework
+
 Ollama – Local LLM inference
+
 HuggingFace Embeddings
+
 FAISS – Vector store for semantic search
 
 
 🔮 Future Improvements
+
 Add a web UI for student interaction.
+
 Support more formats (Word, Markdown, HTML).
+
 Enhance quiz generation with difficulty levels.
