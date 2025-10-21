@@ -18,7 +18,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# ----------------------
+
 # 1. State
 # ----------------------
 class TutorState(TypedDict, total=False):
@@ -28,17 +28,16 @@ class TutorState(TypedDict, total=False):
     output: str
     error: Optional[str]
 
-# ----------------------
+
 # 2. Setup Local LLM + Embeddings
 # ----------------------
 try:
-    llm = ChatOllama(model="llama3")  # Local Ollama model
+    llm = ChatOllama(model="llama3") 
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 except Exception as e:
     logger.error(f"Failed to initialize models: {e}")
     raise
 
-# ----------------------
 # 3. Build VectorStore
 # ----------------------
 def build_vectorstore(pdf_path: str):
@@ -57,9 +56,7 @@ try:
     retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 except Exception as e:
     logger.error(f"Failed to initialize vector store: {e}")
-    # You might want to handle this more gracefully in production
-
-# ----------------------
+  
 # 4. Node Functions
 # ----------------------
 def router_node(state: TutorState) -> TutorState:
@@ -111,7 +108,7 @@ def quiz_node(state: TutorState) -> TutorState:
         """
         response = llm.invoke(prompt)
         
-        # Try to parse as JSON, fallback to raw text if it fails
+       
         try:
             quiz_data = json.loads(response.content)
             state["output"] = json.dumps(quiz_data, indent=2)
@@ -123,7 +120,7 @@ def quiz_node(state: TutorState) -> TutorState:
         state["error"] = f"Error in quiz generation: {str(e)}"
         return state
 
-# ----------------------
+
 # 5. Graph
 # ----------------------
 graph = StateGraph(TutorState)
@@ -151,4 +148,5 @@ if __name__ == "__main__":
     if "error" in result:
         print(f"Error: {result['error']}")
     else:
+
         print(result["output"])
